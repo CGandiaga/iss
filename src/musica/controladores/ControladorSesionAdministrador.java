@@ -8,72 +8,62 @@ import musica.usuarios.GestorUsuarios;
 
 public class ControladorSesionAdministrador {
 	
-	private GestorUsuarios gu; /** el gestor de usuarios */
-	private Administrador admin; /** el administrador de la sesi贸n */
+	private GestorUsuarios gu; /** el gestor de usuarios*/
+	private Administrador admin; /** el administrador de la sesi髇*/
 
-	/**
-	 * Constructor que asigna el gestor de usuarios que recibe como par谩metro	 * 
-	 * @param gesu es el gestor de usuarios 
-	 */
+	/**Constructor que asigna el gestor de usuarios que recibe como par醡etro	 * 
+	 * @param gesu es el gestor de usuarios */
 	public ControladorSesionAdministrador(GestorUsuarios gesu) {
 		gu = gesu;		
 	}
 
-	/**
-	 * Metodo para identificar a un administrador en el sistema, guardando una referencia en el atributo admin
+	/**Metodo para identificar a un administrador en el sistema, guardando una referencia en el atributo admin
 	 * @param login del administrador
 	 * @param clave del administrador
-	 * @throws ExcepcionUsuario si las credenciales de usuario no son v谩lidas
-	 * 			o si las credenciales no son de un administrador
-	 */
+	 * @throws ExcepcionUsuario si las credenciales de usuario no son v醠idas
+	 * 			o si las credenciales no son de un administrador*/
 	public void identificarAdministrador(String login, String clave) throws UsuarioException {
 		if (gu.validarUsuario(login, clave)) {
-			// admin v谩lido
+			// admin v醠ido
 			try {
 				admin = (Administrador) gu.getUsuario(login);
-			} catch (ClassCastException e) {
+			} catch (ClassCastException e) {/**Excepci髇 si getUsuario nos devuelve algo diferente de un administrador*/
 				throw new UsuarioException("Usuario "+login+" no es administrador");
 			}
 		}
-		else // admin no v谩lido
-			throw new UsuarioException("Credenciales de usuario no v谩lidas");
+		else // admin no v醠ido
+			throw new UsuarioException("Credenciales de usuario no v醠idas");
 	}
 
-	/**
-	 * Metodo para crear un usuario de un tipo concreto
-	 * @param login del usuario a crear (脷NICO)
+	/**Metodo para crear un usuario de un tipo concreto
+	 * @param login del usuario a crear (贜ICO)
 	 * @param clave del usuario a crear
 	 * @param nombre del usuario a crear
 	 * @param tipo del usuario a crear
 	 * @throws ExcepcionUsuario si el administrador no se ha identificado en el sistema,
 	 *  		si ya existe un usuario con ese login, 
 	 * 			si el tipo de usuario no existe en el sistema,
-	 * 			o si hubo un error interno en la creaci贸n del usuario
-	 */
+	 * 			o si hubo un error interno en la creaci贸n del usuario*/
 	public void crearUsuario(String login, String clave, String nombre, String tipo) throws UsuarioException {
-		if (admin!= null) 
+		if (admin != null) 
 			gu.crearUsuario(login, clave, nombre, tipo, admin);
 		else
-			throw new UsuarioException("Autenticaci贸n requerida");
+			throw new UsuarioException("Autenticaci髇 requerida");
 	}
 	
-	/**
-	 * Metodo para recuperar una lista de descripciones de usuario de cierto tipor
-	 * @param tipo de usuario de inter茅s
-	 * @return lista de descripciones de usuarios del tipo de inter茅s
+	/**Metodo para recuperar una lista de descripciones de usuario de cierto tipo
+	 * @param tipo de usuario de inter閟
+	 * @return lista de descripciones de usuarios del tipo de inter閟
 	 * @throws ExcepcionUsuario si el administrador no se ha identificado en el sistema,  		
-	 * 			o si el tipo de usuario solicitado no existe
-	 */
+	 * 			o si el tipo de usuario solicitado no existe*/
 	public List<String> listarUsuariosTipo(String tipo) throws UsuarioException {
-		if (admin!= null)
+		if (admin!= null)		
 			return gu.listarUsuariosTipo(tipo);
 		else
-			throw new UsuarioException("Autenticaci贸n requerida");
+			throw new UsuarioException("Autenticaci髇 requerida");
 	}
 
-	/**
-	 * Metodo para cerrar sesi贸n que eliminao la referencia a admin
-	 */
+	/*** Metodo para cerrar sesi髇 que elimina la referencia a admin*/
 	public void cerrarSesion() {
 		admin = null;
 	}

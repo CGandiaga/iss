@@ -1,71 +1,68 @@
 package musica.arranque;
 
 import java.util.List;
-
-import musica.anuncios.GestorCampanas;
+//TODAVIA NO ESTAN IMPLEMENTADAS
+/**import musica.anuncios.GestorCampanas;
 import musica.canciones.Genero;
 import musica.canciones.GestorMusica;
-import musica.canciones.Orden;
+import musica.canciones.Orden;*/
 import musica.controladores.ControladorSesionAdministrador;
-import musica.controladores.ControladorSesionAnunciante;
-import musica.controladores.ControladorSesionArtista;
-import musica.controladores.ControladorSesionSocio;
-import musica.excepciones.ArtistaException;
+//TODAVIA NO ESTAN IMPLEMENTADAS
+import musica.controladores.*;
 import musica.excepciones.UsuarioException;
+import musica.campanas.GestorCampana;
+import musica.cancion.GestorCancion;
+import musica.cancion.Orden;
+import musica.cancion.Genero;
 import musica.usuarios.GestorUsuarios;
 
 public class PruebasMusicaIter1 {
 	
-	/**
-	 * MÃ©todo main(). No se esperan parÃ¡metros.
-	 * @param args parÃ¡metros por lÃ­nea de comandos que no se tratan.
-	 */
+	/*Método main()*/
 	public static void main(String[] args) {
 	
 		//*************************************
-		//*******INICIALIZACION GESTORES*******
+		//*******INICIALIZACIÓN GESTORES*******
 		//*************************************						
-		// Instancio los gestores de usuarios, canciones, campaÃ±as
+		// Instancio los gestores de usuarios, canciones, campañas
 		GestorUsuarios gu = new GestorUsuarios();
-		GestorMusica gm = new GestorMusica();
-		GestorCampanas gc = new GestorCampanas();
+		GestorCancion gm = new GestorCancion();
+		GestorCampana gc = new GestorCampana();
 		
 		//*************************************
 		//****INICIALIZACION CONTROLADORES*****
 		//*************************************				
-		// Instancio controladores de sesiÃ³n
+		// Instanciación controladores de sesión
 		ControladorSesionAdministrador csadmin = new ControladorSesionAdministrador(gu);
 		ControladorSesionArtista csart = new ControladorSesionArtista(gu, gm);
 		ControladorSesionAnunciante csanun = new ControladorSesionAnunciante(gu, gc);
-		ControladorSesionSocio cssoc = new ControladorSesionSocio(gu, gm, gc);
+		ControladorSesionSocio cssoc = new ControladorSesionSocio(gu, gm);//NO LE MANDAMOS GESTOR CAMPANA
 		
 				
 		System.out.println("////////////////////////////////////////////////////////");
-		System.out.println("// CASOS DE USO PREVIOS");
+		System.out.println("// CASOS DE USO PREVIOS/////////////////////////////////");
 		System.out.println("////////////////////////////////////////////////////////\n");	
 		casosUsoAdmin(csadmin);
 		
 		
 		System.out.println("\n\n////////////////////////////////////////////////////////");
-		System.out.println("// CASOS DE USO ITERACIÃ“N 1");
-		System.out.println("////////////////////////////////////////////////////////\n");
+		System.out.println("// CASOS DE USO ITERACIÓN 1/////////////////////////////////");
+		System.out.println("////////////////////////////////////////////////////////////\n");
 		casosUsoArtistas(csart);
 		casosUsoAnunciantes(csanun);
 		casosUsoSocios(cssoc);		
 	}
 
 	
-	/**
-	 * MÃ©todo que realiza los casos de uso de los administradores
-	 * @param csadmin controlador de sesiÃ³n para el usuario admin
-	 */
+	/**Método que realiza los casos de uso de los administradores
+	 * @param csadmin controlador de sesión para el usuario admin*/
 	private static void casosUsoAdmin(ControladorSesionAdministrador csadmin) {
 		System.out.println("/// CASOS DE USO ADMINISTRADOR ///\n");
 		
 		// ------------------------------------
-		// -- Usuario admin (ADMINISTRADOR) --
+		// -- Usuario admin (ADMINISTRADOR) ---
 		// ------------------------------------
-		System.out.println("<<inicio sesiÃ³n admin>>");
+		System.out.println("<<inicio sesión admin>>");
 		System.out.println("(admin creado por defecto en gestor de usuarios)\n");
 		try {
 			csadmin.identificarAdministrador("admin","admin");
@@ -142,21 +139,19 @@ public class PruebasMusicaIter1 {
 			System.out.println(e.getMessage());
 		}	
 		
-		System.out.println("\n<<cierre sesiÃ³n admin>>");
+		System.out.println("\n<<cierre sesión admin>>");
 		csadmin.cerrarSesion();
 	}
 
-	/**
-	 * MÃ©todo que realiza los casos de uso de los artistas
-	 * @param csart controlador de sesiÃ³n para el usuario artista
-	 */
+	/** Método que realiza los casos de uso de los artistas
+	 * @param csart controlador de sesión para el usuario artista*/
 	private static void casosUsoArtistas(ControladorSesionArtista csart) {
 		System.out.println("\n\n/// CASOS DE USO ARTISTAS ///\n");
 		
 		// ------------------------------------
 		// -- Usuario muse (ARTISTA) --
 		// ------------------------------------
-		System.out.println("<<inicio sesiÃ³n muse>>\n");	
+		System.out.println("<<inicio sesión muse>>\n");	
 		try {
 			csart.identificarArtista("muse","clave");
 		} catch (UsuarioException e) {
@@ -164,27 +159,27 @@ public class PruebasMusicaIter1 {
 		}
 		
 		//*************************************
-		//*******PUBLICACIÃ“N DE CANCIONES******
+		//*******PUBLICACIÓN DE CANCIONES******
 		//*************************************	
-		System.out.println("PUBLICACIÃ“N DE CANCIONES");
+		System.out.println("PUBLICACIÓN DE CANCIONES");
 		System.out.println("muse crea cuatro canciones");
 		try {			
-			csart.publicarCancion("Hysteria", Genero.ROCK);
+			csart.publicarCancion("Hysteria",Genero.ROCK);
 			csart.publicarCancion("Madness", Genero.ELECTRONICA);
-			csart.publicarCancion("Starlight", Genero.ROCK);
-			csart.publicarCancion("Resistance", Genero.ROCK);
+			csart.publicarCancion("Starlight",Genero.ROCK);
+			csart.publicarCancion("Resistance",Genero.ROCK);
 		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
 		}	
 
-		System.out.println("\n<<cierre sesiÃ³n muse>>");
+		System.out.println("\n<<cierre sesión muse>>");
 		csart.cerrarSesion();
 		
 		
 		// ------------------------------------
 		// -- Usuario judas priest (ARTISTA) --
 		// ------------------------------------
-		System.out.println("\n<<inicio sesiÃ³n judas priest>>\n");	
+		System.out.println("\n<<inicio sesión judas priest>>\n");	
 		try {
 			csart.identificarArtista("judas","clave");
 		} catch (UsuarioException e) {
@@ -194,31 +189,29 @@ public class PruebasMusicaIter1 {
 		//*************************************
 		//*******PUBLICACIÃ“N DE CANCIONES******
 		//*************************************	
-		System.out.println("PUBLICACIÃ“N DE CANCIONES");
+		System.out.println("PUBLICACIÓN DE CANCIONES");
 		System.out.println("judas crea tres canciones");
 		try {			
-			csart.publicarCancion("Victim of changes", Genero.ROCK);
-			csart.publicarCancion("Breaking the law", Genero.ROCK);
-			csart.publicarCancion("Painkiller", Genero.ROCK);
+			csart.publicarCancion("Victim of changes",Genero.ROCK);
+			csart.publicarCancion("Breaking the law",Genero.ROCK);
+			csart.publicarCancion("Painkiller",Genero.ROCK);
 		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
 		}	
 
-		System.out.println("\n<<cierre sesiÃ³n judas priest>>");
+		System.out.println("\n<<cierre sesión judas priest>>");
 		csart.cerrarSesion();
 	}
 
-	/**
-	 * MÃ©todo que realiza los casos de uso de los anunciantes
-	 * @param csanun controlador de sesiÃ³n para el usuario anunciante
-	 */
+	/**Método que realiza los casos de uso de los anunciantes
+	 * @param csanun controlador de sesiÃ³n para el usuario anunciante*/
 	private static void casosUsoAnunciantes(ControladorSesionAnunciante csanun) {
 		System.out.println("\n\n/// CASOS DE USO ANUNCIANTES ///\n");
 		
 		// ------------------------------------
 		// -- Usuario donnaipe (ANUNCIANTE) --
 		// ------------------------------------
-		System.out.println("<<inicio sesiÃ³n donnaipe>>\n");	
+		System.out.println("<<inicio sesión donnaipe>>\n");	
 		try {
 			csanun.identificarAnunciante("donnaipe","clave");
 		} catch (UsuarioException e) {
@@ -226,39 +219,39 @@ public class PruebasMusicaIter1 {
 		}
 				
 		//*************************************
-		//*******PUBLICACIÃ“N DE CAMPAÃ‘AS*******
+		//*******PUBLICACIÓN DE CAMPAÑAS*******
 		//*************************************	
-		System.out.println("\nPUBLICACIÃ“N DE CAMPAÃ‘AS");
-		System.out.println("donnaipe crea tres campaÃ±as");
+		System.out.println("\nPUBLICACIÓN DE CAMPAÑAS");
+		System.out.println("donnaipe crea tres campañas");
 		try {
-			csanun.publicarCampana("Tute a Cuatro", Genero.ROCK, 10);
-			csanun.publicarCampana("Europoly", Genero.ROCK, 8);
-			csanun.publicarCampana("DominÃ³ en Parejas", Genero.POP, 5);
+			csanun.PublicarCampana("Tute a Cuatro", 10,Genero.ROCK);
+			csanun.PublicarCampana("Europoly", 8,Genero.ROCK);
+			csanun.PublicarCampana("Dominó en Parejas", 5,Genero.POP);
 		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
 		}	
 
 		//*************************************
-		//*****LISTAR CAMPAÃ‘AS ANUNCIANTE******
+		//*****LISTAR CAMPAÑAS ANUNCIANTE******
 		//*************************************	
-		System.out.println("\nLISTAR CAMPAÃ‘AS");
-		System.out.println("lista de campaÃ±as:");
+		System.out.println("\nLISTAR CAMPAÑAS");
+		System.out.println("lista de campañas:");
 		try {
-			List<String> descs = csanun.listarMisCampanas();
+			List<String> descs = csanun.listarMisCampañas();
 			for (String desc : descs)
 				System.out.println(desc+"\n");
-			System.out.println("hay "+descs.size()+" campaÃ±as");
+			System.out.println("hay "+descs.size()+" campañas");
 		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println("\n<<cierre sesiÃ³n donnaipe>>");
+		System.out.println("\n<<cierre sesión donnaipe>>");
 		csanun.cerrarSesion();	
 		
 		// ------------------------------------
 		// -- Usuario megaclothes (ANUNCIANTE) --
 		// ------------------------------------
-		System.out.println("\n<<inicio sesiÃ³n megaclothes>>\n");	
+		System.out.println("\n<<inicio sesión megaclothes>>\n");	
 		try {
 			csanun.identificarAnunciante("megaclothes","clave");
 		} catch (UsuarioException e) {
@@ -266,39 +259,37 @@ public class PruebasMusicaIter1 {
 		}
 				
 		//*************************************
-		//*******PUBLICACIÃ“N DE CAMPAÃ‘AS*******
+		//*******PUBLICACIÓN DE CAMPAÑAS*******
 		//*************************************	
-		System.out.println("\nPUBLICACIÃ“N DE CAMPAÃ‘AS");
-		System.out.println("megaclothes crea dos campaÃ±as");
+		System.out.println("\nPUBLICACIÓN DE CAMPAÑAS");
+		System.out.println("megaclothes crea dos campañas");
 		try {
-			csanun.publicarCampana("Calcetines invierno", Genero.ROCK, 50);
-			csanun.publicarCampana("Bufandas de lana", Genero.POP, 20);
+			csanun.PublicarCampana("Calcetines invierno", 50,Genero.ROCK);
+			csanun.PublicarCampana("Bufandas de lana",20 ,Genero.POP);
 		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
 		}	
 
 		//*************************************
-		//*****LISTAR CAMPAÃ‘AS ANUNCIANTE******
+		//*****LISTAR CAMPAÑAS ANUNCIANTE******
 		//*************************************	
-		System.out.println("\nLISTAR CAMPAÃ‘AS");
-		System.out.println("lista de campaÃ±as:");
+		System.out.println("\nLISTAR CAMPAÑAS");
+		System.out.println("lista de campañas:");
 		try {
-			List<String> descs = csanun.listarMisCampanas();
+			List<String> descs = csanun.listarMisCampañas();
 			for (String desc : descs)
 				System.out.println(desc+"\n");
-			System.out.println("hay "+descs.size()+" campaÃ±as");
+			System.out.println("hay "+descs.size()+" campañas");
 		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println("\n<<cierre sesiÃ³n megaclothes>>");
+		System.out.println("\n<<cierre sesión megaclothes>>");
 		csanun.cerrarSesion();
 	}
 
-	/**
-	 * MÃ©todo que realiza los casos de uso de los socios
-	 * @param cssoc controlador de sesiÃ³n para el usuario socio
-	 */
+	/**Método que realiza los casos de uso de los socios
+	 * @param cssoc controlador de sesiÃ³n para el usuario socio*/
 	private static void casosUsoSocios(ControladorSesionSocio cssoc) {
 		System.out.println("\n\n/// CASOS DE USO SOCIOS ///\n");
 		
@@ -317,7 +308,7 @@ public class PruebasMusicaIter1 {
 		//*************************************
 		System.out.println("\nPASAR A SOCIO PREMIUM");
 		try {
-			cssoc.activarPremium(true);
+			cssoc.setPremium(true);;
 			System.out.println("Luisa pasa a ser socio premium");
 		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
@@ -329,40 +320,38 @@ public class PruebasMusicaIter1 {
 		System.out.println("\nLISTAR CANCIONES POR ARTISTA");
 		System.out.println("\nlista de canciones de Muse ordenadas alfabÃ©ticamente:");
 		try {
-			List<String> descs = cssoc.listarCancionesArtista("muse", Orden.ALFA);
+			List<String> descs = cssoc.listarCancionesArtista("muse", Orden.ALF);
 			for (String desc : descs)
 				System.out.println(desc+"\n");
 			System.out.println("hay "+descs.size()+" canciones de Muse");
-		} catch (UsuarioException | ArtistaException e) {
+		} catch (UsuarioException  e) {
 			System.out.println(e.getMessage());
 		} 
 		System.out.println("\nlista de canciones de Judas Priest ordenadas alfabÃ©ticamente (inversa):");
 		try {
-			List<String> descs = cssoc.listarCancionesArtista("judas", Orden.ALFA_INV);
+			List<String> descs = cssoc.listarCancionesArtista("judas", Orden.ALF_INV);
 			for (String desc : descs)
 				System.out.println(desc+"\n");
 			System.out.println("hay "+descs.size()+" canciones de Judas Priest");
-		} catch (UsuarioException | ArtistaException e) {
+		} catch (UsuarioException  e) {
 			System.out.println(e.getMessage());
 		} 
-		System.out.println("\nlista de canciones de Pearl Jam ordenadas alfabÃ©ticamente:");
+		System.out.println("\nlista de canciones de Pearl Jam ordenadas alfabéticamente:");
 		try {
-			List<String> descs = cssoc.listarCancionesArtista("pearl", Orden.ALFA);
+			List<String> descs = cssoc.listarCancionesArtista("pearl", Orden.ALF);
 			for (String desc : descs)
 				System.out.println(desc+"\n");
 			System.out.println("hay "+descs.size()+" canciones de Pearl Jam");
 		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
-		} catch (ArtistaException e) {
-			System.out.println(e.getMessage());
-		}
-		System.out.println("\nlista de canciones de admin ordenadas alfabÃ©ticamente:");
+		} 
+		System.out.println("\nlista de canciones de admin ordenadas alfabéticamente:");
 		try {
-			List<String> descs = cssoc.listarCancionesArtista("admin", Orden.ALFA);
+			List<String> descs = cssoc.listarCancionesArtista("admin", Orden.ALF);
 			for (String desc : descs)
 				System.out.println(desc+"\n");
 			System.out.println("hay "+descs.size()+" canciones de admin");
-		} catch (UsuarioException | ArtistaException e) {
+		} catch (UsuarioException e) {
 			System.out.println(e.getMessage());
 		}
 

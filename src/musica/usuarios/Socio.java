@@ -37,9 +37,9 @@ public class Socio extends Usuario {
 	}
 	
 	/**
-	 * Método que devuelve una descripción del socio
+	 * Metodo que devuelve una descripcion del socio
 	 * 
-	 * @return descripción
+	 * @return descripcion
 	 */
 	public String toString() {
 		if (premium) {
@@ -48,7 +48,7 @@ public class Socio extends Usuario {
 		}
 		else {
 			return super.toString() 
-					+ "\n Tipo: socio básico";			
+					+ "\n Tipo: socio basico";			
 		}
 	}
 }
