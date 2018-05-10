@@ -72,5 +72,37 @@ public class ControladorSesionSocio {
 		else
 			throw new UsuarioException("Autenticacion requerida");
 	}
+	
+	public List<String> listarCancionesGenero(String artista,int orden) throws UsuarioException {
+		if (soc!= null) {
+			try {
+				art = (Artista) gu.getUsuario(artista);
+			} catch (ClassCastException e) {
+				throw new UsuarioException("No hay ningun "+artista+" con ese nombre en el sistema");
+			}
+		
+			
+			return gca.listarCancionesArtista(art,orden);
+			
+		}
+		else
+			throw new UsuarioException("Autenticacion requerida");
+	}
+	
+	public List<String> listarMisCanciones(String artista,int orden) throws UsuarioException {
+		if (soc!= null) {
+			try {
+				art = (Artista) gu.getUsuario(artista);
+			} catch (ClassCastException e) {
+				throw new UsuarioException("No hay ningun "+artista+" con ese nombre en el sistema");
+			}
+		
+			
+			return gca.listarCancionesArtista(art,orden);
+			
+		}
+		else
+			throw new UsuarioException("Autenticacion requerida");
+	}
 
 }
