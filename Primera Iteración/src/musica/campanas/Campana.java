@@ -18,20 +18,20 @@ public class Campana {
 	 *  @param anunciate asociado a la campaña	*/
 	
 	//Constructor de Campana
-	public Campana(String nombr, int Nrepr, String gener,int ide,Anunciante anun) {
-		nombre = nombr;
-		Nrepro = Nrepr;
-		genero = gener;
-		id = ide; 
-		anunciante = anun;
+	public Campana(String nombre, int Nrepro, String genero, int id, Anunciante anunciante) {
+		this.nombre = nombre;
+		this.Nrepro = Nrepro;
+		this.genero = genero;
+		this.id = id; 
+		this.anunciante = anunciante;
 	
 	}
 	//Metodo put para cambiar los atributos de una campaña
-	public void put(String nombr, int Nrepr, String gener, Anunciante anun) {
-		nombre = nombr;
-		Nrepro = Nrepr;
-		genero = gener;
-		anunciante = anun;
+	public void put(String nombre, int Nrepro, String genero, Anunciante anunciante) {
+		this.nombre = nombre;
+		this.Nrepro = Nrepro;
+		this.genero = genero;
+		this.anunciante = anunciante;
 	}
 	
 	//Metodos get para poder conocer los atributos de la campaña
