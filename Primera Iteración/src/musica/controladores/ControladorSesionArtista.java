@@ -30,7 +30,7 @@ public class ControladorSesionArtista {
 				throw new UsuarioException("Usuario "+login+" no es artista");
 			}
 		}
-		else // admin no v√°lido
+		else // artista no v√°lido
 			throw new UsuarioException("Credenciales de usuario no validas");
 	}
 	
@@ -45,6 +45,7 @@ public class ControladorSesionArtista {
 		else
 			throw new UsuarioException("Autenticaci√≥n requerida");
 }
+	
 	
 	/*Cierre de sesiÛn*/
 	/**Metodo para cerrar sesiÛn que elimina la referencia a art*/

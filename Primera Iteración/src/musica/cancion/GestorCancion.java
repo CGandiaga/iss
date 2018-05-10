@@ -22,9 +22,10 @@ public class GestorCancion {
 		 * Canción	el mapa esta formado por clases de tipo canción**/
 		private Map<Integer,Cancion> mapaCanciones;
 
-		/* Creamos dos comparadores uno para ordenar alfabeticamente y otro para el orden alfabetico inverso*/
-		/*No les creamos dentro del metodo listar pues podría provocarse duplicidad*/
-		/*Nos hemos basado en el tutorial proporcionado para realizar la ordenación*/
+		/* Creamos 4 comparadores uno para ordenar alfabeticamente, otro para el orden alfabetico inverso*/
+		/* Y otros dos para ordenar según el número de reproducciones*/
+		/* No les creamos dentro del metodo listar pues podría provocarse duplicidad*/
+		/* Nos hemos basado en el tutorial proporcionado para realizar la ordenación*/
 static final Comparator<Cancion> ALFA =
 		new Comparator<Cancion>() {
 	public int compare(Cancion v1,Cancion v2) {
@@ -37,6 +38,21 @@ static final Comparator<Cancion> ALFA_INV =
 	public int compare(Cancion v1,Cancion v2) {
 		return -v1.getTitulo().compareTo(v2.getTitulo());/*Al no haber ningún entero negativo se puede realizar así sin ningún problema*/
 	}													/*Otra forma seria quitando el menos y cambiando v1 por v2*/
+};
+
+static final Comparator<Cancion> NREPRO_MAX =
+new Comparator<Cancion>() {
+public int compare(Cancion v1,Cancion v2) {
+return  (new Integer(v1.getRepro()).compareTo( new Integer(v2.getRepro())));
+}													
+};
+
+
+static final Comparator<Cancion> NREPRO_MIN =
+new Comparator<Cancion>() {	
+public int compare(Cancion v1,Cancion v2) {
+	return  (new Integer(v1.getRepro()).compareTo( new Integer(v2.getRepro())));
+}													
 };
 
 	/**Constructor que inicializa el mapa de canciones  */
@@ -103,8 +119,98 @@ static final Comparator<Cancion> ALFA_INV =
 				throw new UsuarioException("Error interno en la creación de la lista");
 			}
 		}
+	
+	/**Método que permite a un usuario de tipo anunciante listar campanas*/
+	public List<String> listarCancionesGenero(String genero, int orden ) throws UsuarioException {		
+			try{	
+		// inicializo lista
+			List<Cancion> listaorden = new ArrayList<>();
+			// preparo lista
+			for (Cancion can : mapaCanciones.values()) {
+				if (genero == can.getGenero())
+					listaorden.add(can);					
+			}
+			/*Elegimos el orden de listado*/
+			switch (orden) {
+			
+			case Orden.ALF :
+				Collections.sort(listaorden,ALFA);
+				break;
+			case Orden.ALF_INV:
+				Collections.sort(listaorden,ALFA_INV);
+				break;	
+			case Orden.NREPRO_MAX:
+				Collections.sort(listaorden,NREPRO_MAX);
+				break;	
+			case Orden.NREPRO_MIN:
+				Collections.sort(listaorden,NREPRO_MIN);
+				break;		
+			
+			}
+			/*Convertimos la lista de canciones en string*/
+			List<String> listafinal = new ArrayList<>();
+			// preparo lista
+			for (Cancion can : listaorden) {
+					listafinal.add(can.toString());					
+			}
+			
+			// y la devuelvo
+			
+			return listafinal;
+			}
+			/**Excepciones que puede causar el uso de add*/
+			catch(NullPointerException | UnsupportedOperationException | ClassCastException  |  IllegalArgumentException e){
+				throw new UsuarioException("Error interno en la creación de la lista");
+			}
+		}
+	
+	/**Método que permite a un usuario de tipo anunciante listar campanas*/
+	public List<String> listarMisCanciones(Artista artista, int orden ) throws UsuarioException {		
+			try{	
+		// inicializo lista
+			List<Cancion> listaorden = new ArrayList<>();
+			// preparo lista
+			for (Cancion can : mapaCanciones.values()) {
+				if (artista == can.getArtista())
+					listaorden.add(can);					
+			}
+			/*Elegimos el orden de listado*/
+			switch (orden) {
+			
+			case Orden.ALF :
+				Collections.sort(listaorden,ALFA);
+				break;
+			case Orden.ALF_INV:
+				Collections.sort(listaorden,ALFA_INV);
+				break;	
+			case Orden.NREPRO_MAX:
+				Collections.sort(listaorden,NREPRO_MAX);
+				break;	
+			case Orden.NREPRO_MIN:
+				Collections.sort(listaorden,NREPRO_MIN);
+				break;	
+			
+			}
+			/*Convertimos la lista de canciones en string*/
+			List<String> listafinal = new ArrayList<>();
+			// preparo lista
+			for (Cancion can : listaorden) {
+					listafinal.add(can.toString());					
+			}
+			
+			// y la devuelvo
+			
+			return listafinal;
+			}
+			/**Excepciones que puede causar el uso de add*/
+			catch(NullPointerException | UnsupportedOperationException | ClassCastException  |  IllegalArgumentException e){
+				throw new UsuarioException("Error interno en la creación de la lista");
+			}
+		}
 		
 	}
+
+
 	
 
 	

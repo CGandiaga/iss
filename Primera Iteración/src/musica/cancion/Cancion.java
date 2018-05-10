@@ -5,7 +5,7 @@ import musica.usuarios.Artista;
 public class Cancion {
 	//Atributos de la cancion
 			private int identificador;
-			private int Nrepro;
+			private int repro;
 			private String titulo;
 			private Artista artista;
 			private String genero;
@@ -19,9 +19,9 @@ public class Cancion {
 		 *  @param genero asociado a la canción	*/	
 			
 		//Constructor Cancion
-		public Cancion(int identificador, int Nrepro, String titulo,Artista artista, String genero) {
+		public Cancion(int identificador, int repro, String titulo,Artista artista, String genero) {
 			this.identificador = identificador;
-			this.Nrepro = Nrepro;
+			this.repro = repro;
 			this.titulo = titulo;
 			this.artista = artista;
 			this.genero = genero;
@@ -44,7 +44,7 @@ public class Cancion {
 		//Método que devuelve el numero de reproducciones
 		 /** @return Nrepros*/
 		public int getRepro() {
-			return Nrepro;
+			return repro;
 		}
 		//Método que devuelve el identificador
 		 /** @return identificador*/
@@ -59,6 +59,12 @@ public class Cancion {
 					"\nTitulo: "		+	getTitulo()	+ 
 					"\n Artista: "	+	getArtista().getNombre()	+ 
 					"\n Reproducciones: "	+	getRepro();
-}
+		}
+		//Función para 
+		public int ingresos() {
+			int ingresos = 0;
+		    /**linea que calcula el ingreso según el nº de reproducciones*/	
+			return ingresos;
+		}
 }
 

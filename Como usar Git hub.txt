@@ -6,8 +6,8 @@ COMO DESCARGAR Y AÑADIR FICHEROS
 1-git	clone	Descargar 1º vez, URL repositorio
 2-git	pull	Descarga actualizaciones
 3-git	status	Ver cambios
-4-git	commit	-m "Nombre Version"
-5-git	add	archivos Decidir que subes de lo que has cambiado
+4-git	add	archivos Decidir que subes de lo que has cambiado
+5-git	commit	-m "Nombre Version"
 6-git	push	Subir 
 
 
